@@ -1,7 +1,10 @@
-from .trainer import Trainer
-from .event import Phase
-from typing import Any, Dict
+
+from typing import Any, Dict, TYPE_CHECKING
 from dataclasses import dataclass, field
+if TYPE_CHECKING:
+  from .trainer import Trainer
+  from .event import Phase
+
 
 @dataclass
 class RuntimeContext:

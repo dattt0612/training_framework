@@ -1,6 +1,7 @@
-from typing import List
-from .event import Event
-from .runtime_context import RuntimeContext
+from typing import List, TYPE_CHECKING
+if TYPE_CHECKING:
+  from .event import Event
+  from .runtime_context import RuntimeContext
 
 class Callback:
   """
