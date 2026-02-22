@@ -1,4 +1,4 @@
-
+from __future__ import annotations
 from typing import Any, Dict, TYPE_CHECKING
 from dataclasses import dataclass, field
 if TYPE_CHECKING:
