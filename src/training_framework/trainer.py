@@ -8,12 +8,13 @@ from torch.nn import Module
 from torch.utils.data import DataLoader
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import LRScheduler
+from .callback import CallbackManager, Callback
+from .runtime_context import RuntimeContext
+from .event import Phase, Event
+from .to_device import to_device
 
-if TYPE_CHECKING:
-  from .callback import CallbackManager, Callback
-  from .runtime_context import RuntimeContext
-  from .event import Phase, Event
-  from .to_device import to_device
+# if TYPE_CHECKING:
+#   from .event import Phase, Event
 
 class Trainer:
   def __init__(
@@ -79,8 +80,9 @@ class Trainer:
 
       # BATCH_PREPARE
       self.callbacks.dispatch(Event.BATCH_PREPARE_START, self.context)
-      self.context.batch = self.gpu_transform(self.context.batch)
-      if self.context.is_training:
+      if self.gpu_transform is not None:
+        self.context.batch = self.gpu_transform(self.context.batch)
+      if self.context.is_training and self.gpu_augment is not None:
         self.context.batch = self.gpu_augment(self.context.batch)
       self.callbacks.dispatch(Event.BATCH_PREPARE_END, self.context)
 

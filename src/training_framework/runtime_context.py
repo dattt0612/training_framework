@@ -1,9 +1,10 @@
 from __future__ import annotations
 from typing import Any, Dict, TYPE_CHECKING
 from dataclasses import dataclass, field
+from .event import Phase
+
 if TYPE_CHECKING:
   from .trainer import Trainer
-  from .event import Phase
 
 
 @dataclass
