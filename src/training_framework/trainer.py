@@ -49,7 +49,10 @@ class Trainer:
   
   def forward(self, batch) -> Dict[str, Any]:
    raise NotImplementedError
-
+  
+  def compute_metrics(self, forward_results: Dict[str, Any]) -> Dict[str, Any]:
+   raise NotImplementedError
+  
   def backward(self):
     loss: Tensor = self.context.forward_results["loss"]
     loss.backward()
@@ -84,6 +87,7 @@ class Trainer:
       # FORWARD
       self.callbacks.dispatch(Event.FORWARD_START, self.context)
       self.context.forward_results = self.forward(batch=self.context.batch)
+      self.context.metrics = self.compute_metrics(forward_results=self.context.forward_results)
       self.callbacks.dispatch(Event.FORWARD_END, self.context)
       
       if self.context.is_training:
