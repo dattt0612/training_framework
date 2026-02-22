@@ -12,7 +12,7 @@ if TYPE_CHECKING:
   from .callback import CallbackManager, Callback
   from .runtime_context import RuntimeContext
   from .event import Phase, Event
-import to_device
+from to_device import to_device
 
 class Trainer:
   def __init__(
