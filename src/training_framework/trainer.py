@@ -1,4 +1,4 @@
-from typing import List, Callable, Dict, Any
+from typing import List, Callable, Dict, Any, TYPE_CHECKING
 from tqdm import tqdm
 
 import torch
@@ -8,9 +8,10 @@ from torch.utils.data import DataLoader
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import LRScheduler
 
-from .callback import CallbackManager, Callback
-from .runtime_context import RuntimeContext
-from .event import Phase, Event
+if TYPE_CHECKING:
+  from .callback import CallbackManager, Callback
+  from .runtime_context import RuntimeContext
+  from .event import Phase, Event
 import to_device
 
 class Trainer:
